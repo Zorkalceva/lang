@@ -1,0 +1,75 @@
+    // Суперкласс: Млекопитающие
+abstract class Mammal {
+    // Общие характеристики млекопитающих
+    private String name;
+    private int age;
+    private double weight;
+
+    public Mammal(String name, int age, double weight) {
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+    }
+    // Абстрактный метод для получения скорости
+    public abstract double getSpeed();
+    // Методы доступа
+    public String getName() {
+        return name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public double getWeight() {
+        return weight;
+    }
+    // Метод описания млекопитающего
+    public void displayInfo() {
+        System.out.println("Name: " + name + ", Age: " + age + ", Weight: " + weight);
+    }
+}
+// Средний уровень: Парнокопытные
+abstract class Ungulate extends Mammal {
+    // Общие характеристики парнокопытных
+    private int hoofCount;
+    public Ungulate(String name, int age, double weight, int hoofCount) {
+        super(name, age, weight);
+        this.hoofCount = hoofCount;
+    }
+    // Методы доступа
+    public int getHoofCount() {
+        return hoofCount;
+    }
+    // Абстрактный метод (возможно, будет реализован в подкласе)
+    public abstract void graze();
+}
+// Низший уровень: Олень
+class Cow extends Ungulate {
+    // Характеристики оленя
+    private String breed;
+    public Cow(String name, int age, double weight, String breed) {
+        super(name, age, weight, 4); // олень имеет 4 копыта
+        this.breed = breed;
+    }
+    @Override
+    public double getSpeed() {
+        // Реализация метода, возвращает скорость коровы
+        return 15.0; // Примерная скорость коровы в км/ч
+    }
+    @Override
+    public void graze() {
+        System.out.println(getName() + " is grazing in the field.");
+    }
+    public void displayCowInfo() {
+        displayInfo(); // Вызов метода родительского класса
+        System.out.println("Hoof Count: " + getHoofCount() + ", Breed: " + breed);
+    }
+}
+// Тестирование классов
+public class Main {
+    public static void main(String[] args) {
+        Cow cow = new Cow("deer", 3, 500, "Holstein");
+        cow.displayCowInfo();
+        System.out.println("Speed: " + cow.getSpeed() + " km/h");
+        cow.graze();
+    }
+}
